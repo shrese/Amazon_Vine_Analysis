@@ -17,6 +17,7 @@ CREATE TABLE vine_analysis(
 -- 4,880,466
 SELECT COUNT(review_id)
 	FROM vine_analysis;
+	
 -- 87,335
 SELECT COUNT(review_id)
 	FROM vine_analysis
@@ -27,7 +28,6 @@ SELECT COUNT(review_id)
 ---------------------------------
 -- Step 1: Filter the data and create a new table to retrieve all the rows where the total_votes
 --         count is equal to or greater than 20.
-
 SELECT review_id, star_rating, helpful_votes, total_votes, vine, verified_purchase
 	INTO helpful_votes_greaterthan_twenty
 	FROM vine_analysis
@@ -40,7 +40,6 @@ SELECT count(review_id)
 ---------------------------------
 -- Step 2: Filter the new table created in Step 1 and create a new table to retrieve all the rows where the
 --         number of helpful_votes divided by total_votes is equal to or greater than 50%.
-
 SELECT review_id, star_rating, helpful_votes, total_votes, vine, verified_purchase
 	INTO fifty_percent
 	FROM helpful_votes_greaterthan_twenty
@@ -53,7 +52,6 @@ SELECT count(review_id)
 ---------------------------------
 -- Step 3: Filter the table created in Step 2, and create a new table that retrieves all the rows where a 
 --         review was written as part of the Vine program (paid), vine == 'Y'.
-
 SELECT review_id, star_rating, helpful_votes, total_votes, vine, verified_purchase
 	INTO vine_yes 
 	FROM fifty_percent
@@ -66,11 +64,10 @@ SELECT count(review_id)
 ---------------------------------
 -- Step 4: Repeat Step 3, but this time retrieve all the rows where the review was not part of the Vine 
 --         program (unpaid), vine == 'N'.
-
 SELECT review_id, star_rating, helpful_votes, total_votes, vine, verified_purchase
 	INTO vine_no
 	FROM fifty_percent
-	WHERE vine = 'N'
+	WHERE vine = 'N';
 
 -- 85,796
 SELECT count(review_id)
@@ -79,3 +76,56 @@ SELECT count(review_id)
 ---------------------------------
 -- Step 5: Determine the total number of reviews, the number of 5-star reviews, and the percentage 
 --         of 5-star reviews for the two types of review (paid vs unpaid).
+
+-- Total number of reviews:
+-- 4,880,466
+SELECT COUNT(review_id)
+	FROM vine_analysis;
+	
+-- Number of 5-star reviews:
+-- 3,128,560
+SELECT COUNT(review_id), star_rating, vine
+	INTO star_rating
+	FROM vine_analysis
+	GROUP BY star_rating, vine
+	ORDER BY star_rating;
+
+-- 3,128,560
+SELECT COUNT(review_id)
+	FROM vine_analysis
+	WHERE star_rating = 5;
+	
+-- % of 5-start reviews for the two types of review (paid vs unpaid):
+-- 11,753 and 3,116,807, respectively
+SELECT COUNT(review_id), vine
+	INTO vine_totals
+	FROM vine_analysis
+	WHERE star_rating = 5
+	GROUP BY vine;
+
+SELECT COUNT(review_id), vine
+	INTO fifty_vine
+	FROM fifty_percent
+	WHERE star_rating = 5
+	GROUP BY vine;
+
+-- Not one of the steps: The data is filtered to create a table where there isn’t a Vine review.
+-- 6
+SELECT COUNT(review_id)
+	FROM vine_analysis
+	WHERE star_rating is null;
+
+SELECT review_id, star_rating, helpful_votes, total_votes, vine, verified_purchase
+	INTO no_ratings
+	FROM vine_analysis
+	WHERE star_rating is null;
+
+-- Not one of the steps but have to answer in write up: How many vine/non-vine reviews were there?
+SELECT COUNT(review_id), vine
+	INTO vine_ratings
+	FROM vine_analysis
+	GROUP BY vine;
+
+SELECT Count(vine)
+	FROM fifty_percent
+	GROUP BY vine;
