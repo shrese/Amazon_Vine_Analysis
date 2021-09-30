@@ -19,7 +19,7 @@ ________
 #### How many Vine reviews and non-Vine reviews were there?
 There was a total of 4.88 million reviews for kitchen products on Amazon, of which 4.86 million were not from Amazon Vine Members. There were only 24,000 reviews from Vine Members.
 
-![](Resources\total_votes.PNG)
+![](Resources/total_votes.png)
 
 In the smaller population, there were a total of 86,870, of which 1,074 were vine reviews and 85,796 were from non-vine reviews. 
 
@@ -27,7 +27,7 @@ ________
 #### How many/percentage of Vine reviews were 5 stars? How many non-Vine reviews were 5 stars?
 Of the 4.88 million reviews there were a total of 3.12 million 5-stars.  The majority of the 5-star reviews, or 99.6% were not members.  Only 0.4% were members.
 
-![](Resources\percent_votes.PNG)
+![](Resources/percent_votes.PNG)
 
 Of the smaller population, there were a total of 42,412 reviews of which only 456, or 1.08% were members.  This gives us only 41,956 or 99.92% in the non-members bucket.
 
