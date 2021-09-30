@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+amazon_reviews_us_Kitchen_v1_00.tsv.gz
+vine.csv
+reviews.csv
+
 # Distribution / packaging
 .Python
 build/
